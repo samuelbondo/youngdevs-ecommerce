@@ -1,0 +1,48 @@
+{
+  "name": "youngdevs-ecommerce-platform",
+  "version": "1.0.0",
+  "description": "Young Devs Ltd E-Commerce Platform - Complete Solution",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build",
+    "setup:db": "psql -d youngdevs_ecommerce -f database/schema.sql",
+    "seed:db": "psql -d youngdevs_ecommerce -f database/seed_data.sql",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "keywords": [
+    "ecommerce",
+    "nodejs",
+    "react",
+    "flutter",
+    "postgresql",
+    "young-devs"
+  ],
+  "author": "Young Devs Ltd",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/youngdevs/ecommerce-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/youngdevs/ecommerce-platform/issues"
+  },
+  "homepage": "https://github.com/youngdevs/ecommerce-platform#readme"
+}
