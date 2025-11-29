@@ -1,0 +1,33 @@
+{
+  "name": "youngdevs-ecommerce-backend",
+  "version": "1.0.0",
+  "description": "Young Devs Ltd E-Commerce Platform Backend API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.3",
+    "dotenv": "^16.3.1",
+    "multer": "^1.4.5-lts.1",
+    "cloudinary": "^1.40.0",
+    "nodemailer": "^6.9.4",
+    "express-rate-limit": "^6.10.0",
+    "express-validator": "^7.0.1",
+    "morgan": "^1.10.0",
+    "compression": "^1.7.4",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["ecommerce", "api", "nodejs", "express", "postgresql"],
+  "author": "Young Devs Ltd",
+  "license": "MIT"
+}
