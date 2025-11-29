@@ -1,31 +1,53 @@
-FROM node:18-alpine as build
+# Stage 0: Build frontend
+FROM node:18-alpine AS frontend-build
 
-# Set working directory
-WORKDIR /app
+WORKDIR /app/frontend
 
-# Copy package files
-COPY package*.json ./
+# Copy frontend package files
+COPY frontend/package*.json ./
 
-# Install dependencies
+# Install frontend dependencies
 RUN npm ci
 
-# Copy source code
-COPY . .
+# Copy frontend source code
+COPY frontend/ ./
 
-# Build the application
+# Build frontend
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
+# Stage 1: Build backend
+FROM node:18-alpine AS backend-build
 
-# Copy built assets from build stage
-COPY --from=build /app/build /usr/share/nginx/html
+WORKDIR /app/backend
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy backend package files
+COPY backend/package*.json ./
 
-# Expose port
-EXPOSE 80
+# Install backend dependencies
+RUN npm ci
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Copy backend source code
+COPY backend/ ./
+
+# If your backend needs a build step, uncomment the next line
+# RUN npm run build
+
+# Stage 2: Production image
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy backend
+COPY --from=backend-build /app/backend ./backend
+
+# Copy frontend build
+COPY --from=frontend-build /app/frontend/build ./frontend/build
+
+# Expose backend port (adjust if different)
+EXPOSE 5000
+
+# Set environment variable for production
+ENV NODE_ENV=production
+
+# Start backend
+CMD ["node", "backend/server.js"]
